@@ -14,7 +14,7 @@
         public string BookName { get; set; }
         public string AuthorName { get; set; }
         public decimal Rating { get; set; }
-        public int TotalRating { get; set; }
+        public decimal TotalRating { get; set; }
         public int DiscountPrice { get; set; }
         public int OriginalPrice { get; set; }
         public string Description { get; set; }

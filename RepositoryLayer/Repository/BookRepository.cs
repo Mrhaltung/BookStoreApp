@@ -119,12 +119,26 @@
 
         public IEnumerable<BooksModel> GetAllBook()
         {
-            return Books.Find(FilterDefinition<BooksModel>.Empty).ToList();
+            try
+            {
+                return Books.Find(FilterDefinition<BooksModel>.Empty).ToList();
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public BooksModel GetbyBookId(string id)
         {
-            return Books.Find(x => x.BookID == id).FirstOrDefault();
+            try
+            {
+                return Books.Find(x => x.BookID == id).FirstOrDefault();
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

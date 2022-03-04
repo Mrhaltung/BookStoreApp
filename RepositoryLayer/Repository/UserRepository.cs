@@ -6,6 +6,7 @@
     using Models;
     using MongoDB.Driver;
     using RepositoryLayer.Interface;
+    using StackExchange.Redis;
     using System;
     using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
@@ -46,7 +47,7 @@
             }
         }
 
-        public Task<RegisterModel> Login(LoginModel login)
+        public async Task<RegisterModel> Login(LoginModel login)
         {
             try
             {
@@ -56,7 +57,13 @@
                     check = this.User.AsQueryable().Where(x => x.EmailID == login.EmailID).FirstOrDefault();
                     if(check != null)
                     {
-                        return Task.FromResult(check);
+                        ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                        IDatabase database = connectionMultiplexer.GetDatabase();
+                        database.StringSet(key: "Full Name", check.FullName);
+                        database.StringSet(key: "Mobile", check.Mobile);
+                        database.StringSet(key: "Email", check.EmailID);
+                        database.StringSet(key: "UserID", check.UserID);
+                        return check;
                     }
                     return null;
                 }

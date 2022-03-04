@@ -38,13 +38,28 @@ namespace BookStore
 
             services.Configure<DatabaseSetting>(this.Configuration.GetSection(nameof(DatabaseSetting)));
             
-            services.AddSingleton<IDatabaseSetting>(sp => sp.GetRequiredService<IOptions<DatabaseSetting>>().Value);
+            services.AddSingleton<IDatabaseSetting>(p => p.GetRequiredService<IOptions<DatabaseSetting>>().Value);
             
             services.AddTransient<IUserManager, UserManager>();
             services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddTransient<IBookManager, BookManager>();
             services.AddTransient<IBookRepository, BookRepository>();
+
+            services.AddTransient<ICartManager, CartManager>();
+            services.AddTransient<ICartRepository, CartRepository>();
+
+            services.AddTransient<IAddressManager, AddressManager>();
+            services.AddTransient<IAddressRepository, AddressRepository>();
+
+            services.AddTransient<IWishlistManager, WishlistManager>();
+            services.AddTransient<IWishlistRepository, WishlistRepository>();
+
+            services.AddTransient<IOrderManager, OrderManager>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+
+            services.AddTransient<IFeedbackManager, FeedbackManager>();
+            services.AddTransient<IFeedbackRepository, FeedbackRepository>();
 
             services.AddSwaggerGen(c =>
             {

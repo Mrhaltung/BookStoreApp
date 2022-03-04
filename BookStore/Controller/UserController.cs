@@ -3,6 +3,7 @@
     using ManagerLayer.Interface;
     using Microsoft.AspNetCore.Mvc;
     using Models;
+    using StackExchange.Redis;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -50,6 +51,21 @@
                 var res = await this.manager.Login(login);
                 if (res != null)
                 {
+                    ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                    IDatabase database = connectionMultiplexer.GetDatabase();
+                    string fullName = database.StringGet("FullName");
+                    string email = database.StringGet("Email");
+                    string mobile = database.StringGet("Mobile");
+                    string userId = database.StringGet("UserID");
+
+                    RegisterModel data = new RegisterModel
+                    {
+                        FullName = fullName,
+                        EmailID = email,
+                        Mobile = mobile,
+                        UserID = userId,
+                    };
+
                     string token = this.manager.GenerateToken(login.EmailID);
                     return this.Ok(new { Status = true, Message = "Login Successfully", Data = res, Token = token });
                 }

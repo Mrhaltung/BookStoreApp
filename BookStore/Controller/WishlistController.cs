@@ -16,6 +16,11 @@
     {
         private readonly IWishlistManager manager;
 
+        public WishlistController(IWishlistManager manager)
+        {
+            this.manager = manager;
+        }
+
         [HttpPost]
         [Route("AddToWishlist")]
         public async Task<IActionResult> AddToWishlist(WishlistModel addWish)

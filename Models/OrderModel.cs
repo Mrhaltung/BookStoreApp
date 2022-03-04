@@ -14,15 +14,15 @@
         public string OrderID { get; set; }
 
         [ForeignKey("BooksModel")]
-        public string BookId { get; set; }
+        public string BookID { get; set; }
         public virtual BooksModel BooksModel { get; set; }
 
         [ForeignKey("RegisterModel")]
-        public string UserId { get; set; }
+        public string UserID { get; set; }
         public virtual RegisterModel RegisterModel { get; set; }
 
         [ForeignKey("AddressModel")]
-        public string AddressId { get; set; }
+        public string AddressID { get; set; }
         public virtual AddressModel AddressModel { get; set; }
     }
 }

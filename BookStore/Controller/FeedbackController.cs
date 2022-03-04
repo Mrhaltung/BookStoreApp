@@ -16,6 +16,11 @@
     {
         private readonly IFeedbackManager manager;
 
+        public FeedbackController(IFeedbackManager manager)
+        {
+            this.manager = manager;
+        }
+
         [HttpPost]
         [Route("AddFeedback")]
         public async Task<IActionResult> AddFeedback(FeedbackModel feedback)

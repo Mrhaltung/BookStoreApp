@@ -14,6 +14,11 @@
     {
         private readonly IOrderManager manager;
 
+        public OrderController(IOrderManager manager)
+        {
+            this.manager = manager;
+        }
+
         [HttpPost]
         [Route("AddOrder")]
         public async Task<IActionResult> AddOrder(OrderModel addOrder)
@@ -21,7 +26,7 @@
             try
             {
                 var res = await this.manager.AddOrder(addOrder);
-                if (res == null)
+                if (res != null)
                 {
                     return this.Ok(new ResponseModel<OrderModel> { Status = true, Message = "Order Placed", Data = res });
                 }

@@ -21,7 +21,7 @@
         public string UserID { get; set; }
         public virtual RegisterModel RegisterModel { get; set; }
 
-        public int Rating { get; set; }
+        public decimal Rating { get; set; }
         public string Review { get; set; }
     }
 }
